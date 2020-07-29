@@ -9,8 +9,23 @@ const btn = document.querySelector("button")!;
 const numArr: number[] = [];
 const strArr: string[] = [];
 
+// generics
+const numGenArr: Array<number> = [];
+const strGenArr: Array<string> = [];
+
+// aliases
+type NumStr = number | string;
+type Result = { val: number; time: Date };
+
+// interface
+interface ResObj {
+  val: number;
+  time: Date;
+}
+
 // union-types
-function add(a: number | string, b: number | string) {
+// function add(a: number | string, b: number | string) {
+function add(a: NumStr, b: NumStr) {
   if (typeof a === "number" && typeof b === "number") {
     return a + b;
   } else if (typeof a === "string" && typeof b === "string") {
@@ -20,7 +35,10 @@ function add(a: number | string, b: number | string) {
   }
 }
 
-function printRes(resObj: { val: number; time: Date }) {
+// using alias
+// function printRes(resObj: { val: number; time: Date }) {
+// function printRes(resObj: Result) {
+function printRes(resObj: ResObj) {
   console.log(resObj.val, resObj.time);
 }
 
@@ -41,3 +59,16 @@ btn.addEventListener("click", () => {
   printRes({ val: result as number, time: new Date() });
   console.log(numArr, strArr);
 });
+
+// Promises : Generics
+const prom = new Promise<string>((resolve, reject) => {
+  setTimeout(() => {
+    resolve("promise-resolved");
+  }, 1500);
+});
+
+prom
+  .then((resp) => {
+    console.log(resp.split("-")); // string-oper
+  })
+  .catch();
