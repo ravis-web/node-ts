@@ -1,10 +1,14 @@
 import { Router } from "express";
 
 import { ToDo } from "../models/ToDo";
+import { type } from "os";
 
 const router = Router();
 
 let todoList: ToDo[] = [];
+
+type reqBody = { info: string };
+type reqParam = { taskId: string };
 
 // GET request
 router.get("/", (req, res, next) => {
@@ -13,17 +17,19 @@ router.get("/", (req, res, next) => {
 
 // POST request
 router.post("/todo", (req, res, next) => {
-  const task: ToDo = { id: new Date().toISOString(), info: req.body.info };
+  const body = req.body as reqBody;
+  const task: ToDo = { id: new Date().toISOString(), info: body.info };
   todoList.push(task);
   res.status(201).json({ msg: "task-added", todo: todoList });
 });
 
 // PUT request
 router.put("/todo/:taskId", (req, res, next) => {
-  const taskId = req.params.taskId;
-  const taskIn = todoList.findIndex((task) => task.id === taskId);
+  const params = req.params as reqParam;
+  const body = req.body as reqBody;
+  const taskIn = todoList.findIndex((task) => task.id === params.taskId);
   if (taskIn >= 0) {
-    todoList[taskIn] = { id: todoList[taskIn].id, info: req.body.info };
+    todoList[taskIn] = { id: todoList[taskIn].id, info: body.info };
     return res.status(200).json({ msg: "task-updated", todo: todoList });
   }
   res.status(404).json({ msg: "task-not-found" });
@@ -31,8 +37,8 @@ router.put("/todo/:taskId", (req, res, next) => {
 
 // DELETE request
 router.delete("/todo/:taskId", (req, res, next) => {
-  const taskId = req.params.taskId;
-  todoList = todoList.filter((task) => task.id !== taskId);
+  const params = req.params as reqParam;
+  todoList = todoList.filter((task) => task.id !== params.taskId);
   res.status(200).json({ msg: "task-updated", todo: todoList });
 });
 
