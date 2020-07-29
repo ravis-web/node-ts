@@ -1,3 +1,5 @@
+/* --- TypeScript : Basics--- */
+
 // type-cast
 const a = document.getElementById("a") as HTMLInputElement;
 const b = document.getElementById("b") as HTMLInputElement;

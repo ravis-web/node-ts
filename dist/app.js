@@ -8,7 +8,7 @@ const express_1 = __importDefault(require("express")); // browser-based import s
 const body_parser_1 = __importDefault(require("body-parser"));
 const router_1 = __importDefault(require("./routes/router"));
 const app = express_1.default();
-app.use(body_parser_1.default.json());
+app.use(body_parser_1.default.json()); // inferred-type
 app.use(router_1.default);
 app.listen(5000);
 console.log("http-server");

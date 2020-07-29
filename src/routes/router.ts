@@ -1,7 +1,6 @@
 import { Router } from "express";
 
 import { ToDo } from "../models/ToDo";
-import { type } from "os";
 
 const router = Router();
 

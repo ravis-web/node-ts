@@ -1,4 +1,5 @@
 "use strict";
+/* --- TypeScript : Basics--- */
 // type-cast
 const a = document.getElementById("a");
 const b = document.getElementById("b");

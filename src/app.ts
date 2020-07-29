@@ -6,9 +6,10 @@ import router from "./routes/router";
 
 const app = express();
 
-app.use(bparser.json());
+app.use(bparser.json()); // inferred-type
 
 app.use(router);
 
 app.listen(5000);
+
 console.log("http-server");
